@@ -1,10 +1,7 @@
-from flask import Flask, render_template
+from app import app
+import os
+from config import site_ip_address, site_port
 
-app = Flask(__name__)
 
-@app.route('/')
-def score():
-    return render_template('score.html')
-
-if __name__ == "__main__":
-    app.run()
+app.run(host=os.getenv('IP', site_ip_address),
+        port=int(os.getenv('PORT', site_port)))
