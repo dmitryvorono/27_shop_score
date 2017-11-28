@@ -135,7 +135,7 @@ var DrawArrow = function(arrowValueIndex) {
         ctx.stroke();
     };
 
-    var DrawCenterCircle = function() {
+var DrawCenterCircle = function() {
         ctx.beginPath();
         ctx.arc(middleX, middleY, centerCircleRadius, 0, 2 * Math.PI, false);
         ctx.fillStyle = centerCircleColor;
@@ -145,24 +145,25 @@ var DrawArrow = function(arrowValueIndex) {
         ctx.stroke();
     };
     
-
-var current_step = 0
-// начать повторы с интервалом 2 сек
-var timerId = setInterval(function() {
-    current_step++;
-    var arrowValueIndex = startAngleIndex + current_step * step;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    DrawTicks();
-    DrawZones();
-    DrawDigits();
-    DrawArrow(arrowValueIndex);
-    DrawCenterCircle();
-
+var DrawSpeedometer = function(){
+    $.getJSON( "/api/score_information", function( data ) {
+        var delay_order = data['max_fulfillment_orders_delay'];
+        console.log(delay_order);
+        var arrowValueIndex = startAngleIndex - 0.02;
+        if(delay_order > 0){
+            arrowValueIndex = startAngleIndex + (delay_order - 1) * step;
+        }
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        DrawTicks();
+        DrawZones();
+        DrawDigits();
+        DrawArrow(arrowValueIndex);
+        DrawCenterCircle();   
+    });
+};
     
-}, 1000);
-
-// через 5 сек остановить повторы
-setTimeout(function() {
-  clearInterval(timerId);
-  alert( 'стоп' );
-}, 50000);
+DrawSpeedometer();
+var timerId = setInterval(function() {
+    DrawSpeedometer();
+}, 10000);

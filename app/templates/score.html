@@ -19,8 +19,28 @@
   <body>
 
     <div class="container">
-      <h1>Here will be score</h1>
+      <h1>Скорость обработки входящих запросов</h1>
       <canvas id="canvas" width="500" height="500"></canvas>
+      <div class="score-information">
+        <div class="score-information__element">
+          <div class="count-fulfillment-orders">
+            <div class="count-fulfillment-orders__label">
+              Количество необработанных заказов - 
+            </div>
+            <div class="count-fulfillment-orders__value">
+            </div>
+          </div>
+          <div class="count-completed-orders">
+            <div class="count-completed-orders__label">
+              Обработанных заказов за день - 
+            </div>
+            <div class="count-completed-orders__value js-count-completed-orders__value">
+            </div>
+          </div>
+        </div>
+        <div class="score-information__element">
+        </div>
+      </div>
     </div><!-- /.container -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

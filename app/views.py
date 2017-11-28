@@ -3,6 +3,7 @@ from flask import render_template
 from flask import Response
 from datetime import timedelta, datetime
 import json
+import pytz
 
 
 @app.route('/api/score_information')
@@ -19,8 +20,9 @@ def score_information():
     
     
 def get_completed_orders_on_period(days=1):
+    tz = pytz.timezone('Europe/Moscow')
     orders_query = db.session.query(models.Order)
-    orders_query = orders_query.filter((models.Order.created+timedelta(days))>datetime.now())
+    orders_query = orders_query.filter((models.Order.created+timedelta(days))>datetime.now(tz))
     orders_query = orders_query.filter(models.Order.status == 'COMPLETED')
     return orders_query.count()
 
@@ -35,9 +37,15 @@ def get_max_fulfillment_orders_delay():
     created = get_created_from_oldest_fulfillment_order()
     if created is None:
         return 0
-    print(datetime.now())
-    print(created)
-    return (datetime.now() - created).total_seconds() / 60.0
+    now = utc_to_local(datetime.now())
+    return (now - created).total_seconds() / 60.0
+
+
+def utc_to_local(utc_dt):
+    local_tz = pytz.timezone('Europe/Moscow')
+    local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(local_tz)
+    local_dt = local_tz.normalize(local_dt)
+    return local_dt.replace(tzinfo = None)
 
 
 def get_created_from_oldest_fulfillment_order():
