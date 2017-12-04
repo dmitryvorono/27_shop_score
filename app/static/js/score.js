@@ -145,25 +145,30 @@ var DrawCenterCircle = function() {
         ctx.stroke();
     };
     
-var DrawSpeedometer = function(){
-    $.getJSON( "/api/score_information", function( data ) {
-        var delay_order = data['max_fulfillment_orders_delay'];
-        console.log(delay_order);
-        var arrowValueIndex = startAngleIndex - 0.02;
-        if(delay_order > 0){
-            arrowValueIndex = startAngleIndex + (delay_order - 1) * step;
-        }
-        
+var DrawSpeedometer = function(delay_order) {
+        var arrowValueIndex;
+        arrowValueIndex = startAngleIndex + step * (delay_order - 1);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         DrawTicks();
         DrawZones();
         DrawDigits();
         DrawArrow(arrowValueIndex);
-        DrawCenterCircle();   
+        DrawCenterCircle();      
+};
+    
+var DrawScoreInformation = function(){
+    $.getJSON( "/api/score_information", function( data ) {
+        var delay_order = data['max_fulfillment_orders_delay'];
+        if(delay_order > 40){
+            delay_order = 40;
+        }
+        DrawSpeedometer(delay_order);
+        $(".js-count-fulfillment-orders").text("Количество необработанных заказов - " + data['count_fulfillment_orders']);
+        $(".js-count-completed-orders").text("Обработанных заказов за день - " + data['count_completed_orders']);
     });
 };
     
-DrawSpeedometer();
+DrawScoreInformation();
 var timerId = setInterval(function() {
-    DrawSpeedometer();
+    DrawScoreInformation();
 }, 10000);
