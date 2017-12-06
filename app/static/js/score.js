@@ -40,6 +40,24 @@ var step = (endAngleIndex - startAngleIndex) / zonesCount;
 var arrowColor = "#464646";
 var arrowWidth = canvas.width / 50;
 
+var RecallCanvasConstant = function(){
+    canvas = document.getElementById("canvas");
+    ctx = canvas.getContext("2d");
+    middleX = canvas.width / 2;
+    middleY = canvas.height / 2;
+    radius = canvas.width / 2 - canvas.width / 10;
+    startAngleIndex = 0.7;
+    endAngleIndex = 2.3;
+    zoneLineWidth = canvas.width / 30;
+    tickWidth = canvas.width / 100;
+    tickOffsetFromArc = canvas.width / 40;
+    centerCircleRadius = canvas.width / 20;
+    centerCircleBorderWidth = canvas.width / 100;
+    digitsOffsetFromArc = canvas.width / 12;
+    step = (endAngleIndex - startAngleIndex) / zonesCount;
+    arrowWidth = canvas.width / 50;
+};
+
 var DrawZones = function() {
         var greenZonesCount = Math.ceil(6);
         var yellowZonesCount = Math.ceil(23);
@@ -146,6 +164,7 @@ var DrawCenterCircle = function() {
     };
     
 var DrawSpeedometer = function(delay_order) {
+        RecallCanvasConstant();
         var arrowValueIndex;
         arrowValueIndex = startAngleIndex + step * (delay_order - 1);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -163,12 +182,29 @@ var DrawScoreInformation = function(){
             delay_order = 40;
         }
         DrawSpeedometer(delay_order);
-        $(".js-count-fulfillment-orders").text("Количество необработанных заказов - " + data['count_fulfillment_orders']);
-        $(".js-count-completed-orders").text("Обработанных заказов за день - " + data['count_completed_orders']);
+        $(".js-count-fulfillment-orders").text("Необработанных заказов - " + data['count_fulfillment_orders']);
+        $(".js-count-completed-orders").text("Всего за день - " + data['count_completed_orders']);
     });
 };
+
+var ResizeScoreWindow = function(){
+    if($(window).width() > 550){
+        canvas.width  = 500;
+        canvas.height = 500;
+    }else{
+        canvas.width  = 300;
+        canvas.height = 300;
+    }
+  };
+$(document).ready(function(){
+    ResizeScoreWindow();
+    DrawScoreInformation();
+    $(window).on("resize", function(){                      
+        ResizeScoreWindow();
+        DrawScoreInformation();
+    });
+  });
     
-DrawScoreInformation();
 var timerId = setInterval(function() {
     DrawScoreInformation();
 }, 10000);

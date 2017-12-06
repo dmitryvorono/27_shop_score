@@ -1,6 +1,8 @@
 from app import app, db, models
 from flask import render_template
 from flask import Response
+from flask import send_from_directory
+from flask import request
 from datetime import timedelta, datetime
 import json
 import pytz
@@ -60,3 +62,8 @@ def get_created_from_oldest_fulfillment_order():
 @app.route('/')
 def score():
     return render_template('score.html')
+
+
+@app.route('/robots.txt')
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
