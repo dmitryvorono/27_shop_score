@@ -3,7 +3,7 @@ from app import db
 
 class Order(db.Model):
     __tablename__ = 'orders'
-    id = db.Column(db.Integer, primary_key=True)
+    identifier = db.Column('id', db.Integer, primary_key=True)
     contact_name = db.Column(db.String)
     contact_phone = db.Column(db.String)
     contact_email = db.Column(db.String)

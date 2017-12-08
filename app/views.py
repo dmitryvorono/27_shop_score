@@ -36,11 +36,13 @@ def get_fulfillment_orders():
 
 
 def get_max_fulfillment_orders_delay():
+    seconds_in_minute = 60.0
     created = get_created_from_oldest_fulfillment_order()
     if created is None:
         return 0
     now = utc_to_local(datetime.now())
-    return (now - created).total_seconds() / 60.0
+    difference_in_seconds = (now - created).total_seconds()
+    return difference_in_seconds / seconds_in_minute
 
 
 def utc_to_local(utc_dt):
