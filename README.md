@@ -7,12 +7,12 @@ The project is placed in the public domain on Heroku. [To open click here](https
 
 * The page refresh every 10 seconds
 * Speedometer point the color according value:
-    ** green — the waiting time of fulfillment orders is less than 7 minutes
-    ** yellow — the delay is not more than 30 minutes
-    ** red — the delay is more than 30 minutes
+    - green — the waiting time of fulfillment orders is less than 7 minutes
+    - yellow — the delay is not more than 30 minutes
+    - red — the delay is more than 30 minutes
 * Display secondary information:
-    ** the count of fulfillment orders
-    ** the count of orders processed per day
+    - the count of fulfillment orders
+    - the count of orders processed per day
 * Adaptive Web Design
 * The website hidden from search indexing
 
