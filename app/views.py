@@ -1,4 +1,5 @@
-from app import app, db, models
+from app.flask_server import app, db
+from app import models
 from flask import render_template
 from flask import Response
 from flask import send_from_directory

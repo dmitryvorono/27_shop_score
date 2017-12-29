@@ -1,4 +1,4 @@
-from app import db
+from app.flask_server import db
 
 
 class Order(db.Model):

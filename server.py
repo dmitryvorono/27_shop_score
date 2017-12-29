@@ -1,4 +1,4 @@
-from app import app
+from app.flask_server import app
 import os
 from config import site_ip_address, site_port
 
