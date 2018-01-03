@@ -16,6 +16,7 @@ The project is placed in the public domain on Heroku. [To open click here](https
 * Adaptive Web Design
 * The website hidden from search indexing
 
+
 # How to install local
 
 Python 3 should be already installed. Then use pip (or pip3 if there is a conflict with old Python 2 setup) to install dependencies:
@@ -30,6 +31,18 @@ Next, run app:
 ```bash
 $ python server.py
 ```
+
+# Supported browsers
+
+| Browser | Version |
+|---------|---------|
+| IE      | 7+      |
+| Firefox | 3.0+    |
+| Safari  | 3.0+    |
+| Chrome  | 3.0+    |
+| Opera   | 10.0+   |
+| iPhone  | 1.0+    |
+| Android | 1.0+    |
 
 # Project Goals
 
