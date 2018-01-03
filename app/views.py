@@ -1,5 +1,4 @@
 from app.flask_server import app, db
-from app import models
 from flask import render_template
 from flask import Response
 from flask import send_from_directory
@@ -16,8 +15,8 @@ def score_information():
         'max_fulfillment_orders_delay': utils_orders.get_max_fulfillment_orders_delay(),
     }
     response = Response(json.dumps(returned_json_data),
-                    status=200,
-                    mimetype='application/json')
+                        status=200,
+                        mimetype='application/json')
     return response
 
 

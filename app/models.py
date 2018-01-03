@@ -11,4 +11,4 @@ class Order(db.Model):
     created = db.Column(db.DateTime)
     confirmed = db.Column(db.DateTime)
     comment = db.Column(db.String)
-    price = db.Column(db.Numeric(9,2))
+    price = db.Column(db.Numeric(9, 2))
